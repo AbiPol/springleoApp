@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.curso.springleo.constant.ViewConstant;
 import com.curso.springleo.model.UserCredentials;
 
 @Controller
@@ -55,7 +56,7 @@ public class LoginController {
 		model.addAttribute("usercredentials", new UserCredentials());
 		
 		LOG.info("retornamos a /login");
-		return "login";
+		return ViewConstant.LOGIN;
 	}
 	//Este metodo es un metodo Post, que recibe de las vistas un objeto "usercredentials" 
 	// y es gestionado por el Model del mismo nombre.
@@ -67,7 +68,7 @@ public class LoginController {
 		if(userCredentials.getUser().equals("user") && userCredentials.getPassword().equals("user")) {
 			
 			LOG.info("retornamos a /contacts");
-			return "contacts";
+			return ViewConstant.CONTACTS;
 		}
 		//Retorna a la pagina de login con un error como parametro, para que se muestre en pantalla.
 		LOG.info("retornamos a /login?error");

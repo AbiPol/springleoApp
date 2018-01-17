@@ -74,6 +74,7 @@ public class Contacts {
 		this.city = city;
 	}
 
+	// Este constructor siempre para que hibernate pueda manejar este objeto.
 	public Contacts() {
-	} // Este constructor siempre para que hibernate pueda manejar este objeto.
+	}
 }
