@@ -1,0 +1,12 @@
+package com.curso.springleo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SpringleoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringleoApplication.class, args);
+	}
+}
