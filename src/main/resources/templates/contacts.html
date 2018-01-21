@@ -72,6 +72,8 @@
 			</table>
 		</div>
 		
+		<div th:if="${result == 1}" class="alert alert-succes" role="alert">Registro añadido correctamente !!!</div>
+		<div th:if="${result == 0}" class="alert alert-danger" role="alert">Ha habido un error al añadir el registro !!!</div>
 		<a href="#" th:href="@{/contacts/contactform}">
 			<button class="btn btn-lg btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add contact</button>
 		</a>

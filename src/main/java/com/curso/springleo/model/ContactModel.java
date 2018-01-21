@@ -1,6 +1,5 @@
 package com.curso.springleo.model;
 
-
 public class ContactModel {
 
 	private int id;
@@ -60,4 +59,11 @@ public class ContactModel {
 
 	public ContactModel() {
 	}
+
+	@Override
+	public String toString() {
+		return "ContactModel [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", telephone="
+				+ telephone + ", city=" + city + "]";
+	}
+
 }
