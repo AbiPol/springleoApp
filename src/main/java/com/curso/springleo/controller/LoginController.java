@@ -67,8 +67,9 @@ public class LoginController {
 		
 		if(userCredentials.getUser().equals("user") && userCredentials.getPassword().equals("user")) {
 			
-			LOG.info("retornamos a /contacts");
-			return ViewConstant.CONTACTS;
+			LOG.info("retornamos a /contacts/showform");
+			return "redirect:/contacts/showform";
+			//return ViewConstant.CONTACTS;
 		}
 		//Retorna a la pagina de login con un error como parametro, para que se muestre en pantalla.
 		LOG.info("retornamos a /login?error");

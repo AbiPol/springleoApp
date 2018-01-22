@@ -1,5 +1,8 @@
 package com.curso.springleo.service.imp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -29,6 +32,19 @@ public class ContactServiceImpl implements ContactService{
 		Contacts contacts = contactRepository.save(contactConverter.model2Entity(contactsModel));
 		
 		return contactConverter.entity2Model(contacts);
+	}
+	
+	@Override
+	public List<ContactModel> allContacts() {
+		//Recogemos todos los contactos que nos envia el repositorio de la BD
+		List<Contacts> contacts = contactRepository.findAll();
+		//Creamos una lista de ContactModel para pasarlo al controller
+		List<ContactModel> contacModel = new ArrayList<ContactModel>();
+		//Transformamos todas las entities en models
+		for(Contacts contact : contacts) {
+			contacModel.add(contactConverter.entity2Model(contact));
+		}
+		return contacModel;
 	}
 
 }
