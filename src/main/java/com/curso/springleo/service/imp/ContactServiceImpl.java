@@ -14,37 +14,62 @@ import com.curso.springleo.repository.ContactRepository;
 import com.curso.springleo.service.ContactService;
 
 @Service("contactServiceImpl")
-public class ContactServiceImpl implements ContactService{
+public class ContactServiceImpl implements ContactService {
 
-	//Inyectamos el repositorio al que enviar los datos
+	// Inyectamos el repositorio al que enviar los datos
 	@Autowired
 	@Qualifier("contactRepository")
 	private ContactRepository contactRepository;
-	
-	//Inyectamos el converter de entities a model y viceversa.
+
+	// Inyectamos el converter de entities a model y viceversa.
 	@Autowired
 	@Qualifier("contactConverter")
 	private ContactConverter contactConverter;
-	//Este metodo devuelve un objeto ConctactModel porque es el objeto que puede manejar en controller
+
+	// Este metodo devuelve un objeto ConctactModel porque es el objeto que puede
+	// manejar en controller
 	@Override
 	public ContactModel addContacts(ContactModel contactsModel) {
 
 		Contacts contacts = contactRepository.save(contactConverter.model2Entity(contactsModel));
-		
+
 		return contactConverter.entity2Model(contacts);
 	}
-	
+
 	@Override
 	public List<ContactModel> allContacts() {
-		//Recogemos todos los contactos que nos envia el repositorio de la BD
+		// Recogemos todos los contactos que nos envia el repositorio de la BD
 		List<Contacts> contacts = contactRepository.findAll();
-		//Creamos una lista de ContactModel para pasarlo al controller
+		// Creamos una lista de ContactModel para pasarlo al controller
 		List<ContactModel> contacModel = new ArrayList<ContactModel>();
-		//Transformamos todas las entities en models
-		for(Contacts contact : contacts) {
+		// Transformamos todas las entities en models
+		for (Contacts contact : contacts) {
 			contacModel.add(contactConverter.entity2Model(contact));
 		}
 		return contacModel;
+	}
+
+	/*
+	 * Para el borrado de un registro de la BD, primero buscamos el registro y luego
+	 * borramos el registro que nos devuelve la busqueda.
+	 */
+	@Override
+	public Contacts buscaPorId(int id) {
+		return contactRepository.findById(id);
+	}
+
+	@Override
+	public void removeContacts(int id) {
+		Contacts contacts = buscaPorId(id);
+
+		if (contacts != null) {
+			contactRepository.delete(contacts);
+		}
+	}
+
+	@Override
+	public ContactModel buscarPorIdModel(int id) {
+		return contactConverter.entity2Model(buscaPorId(id));
 	}
 
 }

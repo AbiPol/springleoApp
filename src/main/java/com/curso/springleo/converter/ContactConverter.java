@@ -24,6 +24,7 @@ public class ContactConverter {
 		ContactModel contactsModel = new ContactModel();
 		//Cogemos la info de la clase entity y se la enviamos a la model.
 				
+		contactsModel.setId(contacts.getId());
 		contactsModel.setFirstname(contacts.getFirstname());
 		contactsModel.setLastname(contacts.getLastname());
 		contactsModel.setTelephone(contacts.getTelephone());
@@ -36,6 +37,7 @@ public class ContactConverter {
 		LOG.info("--- Hemos convertido de ContactModel a Contacts");
 		Contacts contacts = new Contacts();
 		//Cogemos info de la clase Model y se la enviamos a la Entity
+		contacts.setId(contactsModel.getId());
 		contacts.setFirstname(contactsModel.getFirstname());
 		contacts.setLastname(contactsModel.getLastname());
 		contacts.setTelephone(contactsModel.getTelephone());
