@@ -18,13 +18,18 @@
 
     <div class="container">
 
-      <form class="form-signin" action="#" th:action="@{/logincheck}" th:object="${usercredentials}" method="post">
+      <!-- form class="form-signin" action="#" th:action="@{/logincheck}" th:object="${usercredentials}" method=""> -->
+      <form class="form-signin" th:action="@{/logincheck}"  method="POST">
+      <!-- Enviamos un parametro oculto de la configuracion el 'csrf', que envia un token para evitar vulnerabilidades web conocidas -->
+      	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <h2 class="form-signin-heading">Sign in</h2>
         <label for="inputEmail" class="sr-only">Username</label>
-        <input type="text" id="inputUsername" class="form-control" placeholder="Username" th:field="*{user}"/>
+        <!-- input type="text" id="inputUsername" class="form-control" placeholder="Username" th:field="*{user}"/> -->
+        <input type="text" class="form-control" placeholder="Username" name="username" id="username"/>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" th:field="*{password}"/>
-        <div th:if="${error!=null}" class="alert alert-danger" role="alert">Nombre de usuario o password invalido!</div>
+        <!-- input type="password" id="inputPassword" class="form-control" placeholder="Password" th:field="*{password}"/> -->
+        <input type="password" class="form-control" placeholder="Password" name="password" id="password"/>
+        <div th:if="${error!=null}" class="alert alert-danger" role="alert">Nombre de usuario o password invalido!!!!</div>
         <div th:if="${logout!=null}" class="alert alert-info" role="alert">Has salido correctamente</div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">
         	<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Sign in

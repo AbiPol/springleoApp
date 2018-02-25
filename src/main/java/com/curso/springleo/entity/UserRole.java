@@ -9,14 +9,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 
 @Entity
-@Table(name = "user_role", uniqueConstraints = @UniqueConstraint(columnNames = { "role", "username" }))
+@Table(name = "user_roles", uniqueConstraints = @UniqueConstraint(
+		                     columnNames = { "role" , "username" }))
 public class UserRole {
 
 	@Id
@@ -26,9 +26,9 @@ public class UserRole {
 	
 	//FetchType.LAZY, significa que al acceder a un usuario no se van a cargar todos sus roles, 
 	// solo se cargaran cuando se accedan a ellos en la lectura. Asi no cosumimos recursos del sistema
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "users" ,
-	           joinColumns = @JoinColumn(name="username" , nullable= false))
+	//Joincolumn nos dice a que columna se va a unir
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="username" , nullable= false)
 	private User user;
 	
 	@Column(name="role" , nullable= false , length = 45)

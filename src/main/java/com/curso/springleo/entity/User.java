@@ -26,7 +26,7 @@ public class User {
 	
 	// mappedBy Es un parámetro hace referencia a que la relación 
 	//ya fue construida por la otra clase “UserRole” a traves de su variable 'user'
-	@OneToMany(fetch=FetchType.LAZY , mappedBy = "user")
+	@OneToMany(fetch=FetchType.EAGER , mappedBy = "user")
 	// Es un conjunto de elmentos que no se pueden repetir entre ellos.
 	// HashSet es la clase que vamos a utilizar para implementar la interfaz SET
 	private Set<UserRole> userRole = new HashSet<UserRole>();

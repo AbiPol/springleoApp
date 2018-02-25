@@ -7,6 +7,9 @@ import org.apache.commons.logging.LogFactory;
  */
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.curso.springleo.constant.ViewConstant;
+import com.curso.springleo.entity.User;
 import com.curso.springleo.model.ContactModel;
 import com.curso.springleo.service.ContactService;
 
@@ -31,6 +35,10 @@ public class ContactController {
 	private ContactService contactService;
 
 	//El contactform nos puede venir desde añadir contacto o desde modificar contacto
+	//Preautorize sirve para dejar paso solo a aquel usuario logueado con este rol
+	// Tambbien se pueden formar lo siguiente - "hasRole('ROLE_USER') or/and "hasRole('ROLE_ADMIN')"
+	//                                        - "PermitAll()"
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/contactform")
 	public String redirectContactForm(Model model,
 			@RequestParam(name = "id", required = false) int id) {
@@ -50,6 +58,12 @@ public class ContactController {
 	@GetMapping("/showform")
 	public ModelAndView showForm() {
 		ModelAndView mav = new ModelAndView(ViewConstant.CONTACTS);
+		//Obtenemos en nombre del usuario logeado para pasarlo al formulario de la vista de contactos.
+		//Tratamos con el objeto User de Spring, no con le de nuestra entidad
+		org.springframework.security.core.userdetails.User user = 
+				      (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//Enviamos el usuario principal logeado a la vista
+		mav.addObject("username", user.getUsername());
 		mav.addObject("contacts", contactService.allContacts());
 		return mav;
 	}
