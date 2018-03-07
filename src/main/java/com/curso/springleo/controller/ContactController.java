@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.curso.springleo.constant.ViewConstant;
-import com.curso.springleo.entity.User;
+//import com.curso.springleo.entity.User;
 import com.curso.springleo.model.ContactModel;
 import com.curso.springleo.service.ContactService;
 
@@ -38,7 +38,7 @@ public class ContactController {
 	//Preautorize sirve para dejar paso solo a aquel usuario logueado con este rol
 	// Tambbien se pueden formar lo siguiente - "hasRole('ROLE_USER') or/and "hasRole('ROLE_ADMIN')"
 	//                                        - "PermitAll()"
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/contactform")
 	public String redirectContactForm(Model model,
 			@RequestParam(name = "id", required = false) int id) {
@@ -59,9 +59,9 @@ public class ContactController {
 	public ModelAndView showForm() {
 		ModelAndView mav = new ModelAndView(ViewConstant.CONTACTS);
 		//Obtenemos en nombre del usuario logeado para pasarlo al formulario de la vista de contactos.
-		//Tratamos con el objeto User de Spring, no con le de nuestra entidad
+		//Tratamos con el objeto User de Spring, no con el de nuestra entidad
 		org.springframework.security.core.userdetails.User user = 
-				      (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				(org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		//Enviamos el usuario principal logeado a la vista
 		mav.addObject("username", user.getUsername());
 		mav.addObject("contacts", contactService.allContacts());

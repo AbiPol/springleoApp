@@ -45,6 +45,7 @@ public class UserService implements UserDetailsService{
 		User user = userRepository.findByUsername(username);
 		List<GrantedAuthority> authorities = buildAuthorities(user.getUserRole());
 				
+		//construye un user con sus roles.
 		return buildUser(user, authorities);
 	}
 	
@@ -61,6 +62,8 @@ public class UserService implements UserDetailsService{
 	 * convierte el roles en una lista del objeto grantedAuthority
 	 * List<GrantedAuthority> es el objeto que spring security necesita para saber los roles que tiene nuestra aplicacion
 	 * Se el pasan por parametro los roles del usuario que esta en la entidad User
+	 * Coge los roles del usuario de la tabla y lo transforma en una lista de grantedAuthority que le sirve a spring
+	 * para saber los roles que tiene el usuario conectado.
 	 */
 	private List<GrantedAuthority> buildAuthorities(Set<UserRole> userRoles){
 		

@@ -28,15 +28,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	// Metodo que se implementa de la clase que se extiende y se sobreescribe aqui
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService)
-            .passwordEncoder(new BCryptPasswordEncoder());
+            .passwordEncoder(new BCryptPasswordEncoder());//cifra la password wn la BD
     }
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
         .authorizeRequests()
-            .antMatchers("/css/*", "/imgs/*").permitAll() //request autorizadas sin necesidad de ningun login. Perimite que se 
-                                                          //cargen los css e imagenes estaticos
+            .antMatchers("/css/*", "/imgs/*").permitAll() //request(peticiones) autorizadas sin necesidad de ningun login. Permite que se 
+                                                          //cargen los css e imagenes estaticos(recursos estaticos)
 		    .anyRequest().authenticated()  //El resto de request con autenticacion
             .and()  //Añadimos mas
 	    .formLogin()

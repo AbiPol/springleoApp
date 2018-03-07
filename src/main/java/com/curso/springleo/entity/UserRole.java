@@ -37,7 +37,7 @@ public class UserRole {
 	public UserRole() {
 	}
 
-	public UserRole(Integer userRoleId, User user, String role) {
+	public UserRole(User user, String role) {
 		super();
 		this.user = user;
 		this.role = role;
