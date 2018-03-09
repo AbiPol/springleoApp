@@ -80,4 +80,13 @@ public class UserService implements UserDetailsService{
 		return new ArrayList<GrantedAuthority>(auths);
 	}
 
+	public User userByUsername(String username) {
+		//List<String> rolesUser = new ArrayList<String>();
+		
+		User user = userRepository.findByUsername(username);
+		LOG.info("--UserSevice-- devuelve Usuario : " + user + "." );
+			
+        return user;
+	}
+	
 }

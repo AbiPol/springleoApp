@@ -11,6 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SecurityConfiguration.
+ */
 @Configuration
 @EnableWebSecurity  /*Para integrar y poner disponible el security en spring*/
 @EnableGlobalMethodSecurity(prePostEnabled=true) //Es una anotacion que nos permite crear anotaciones para el acceso a los 
@@ -18,12 +22,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
                                                  //el usuario conectado 
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
+	/** The user service. */
 	//Importamos nuestro service
 	@Autowired
 	@Qualifier("userService")
 	private UserDetailsService userService;
 	
 	
+    /**
+     * Configure global.
+     *
+     * @param auth the auth
+     * @throws Exception the exception
+     */
     @Autowired
 	// Metodo que se implementa de la clase que se extiende y se sobreescribe aqui
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -31,6 +42,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
             .passwordEncoder(new BCryptPasswordEncoder());//cifra la password wn la BD
     }
 	
+	/* (sin Javadoc)
+	 * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#configure(org.springframework.security.config.annotation.web.builders.HttpSecurity)
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
