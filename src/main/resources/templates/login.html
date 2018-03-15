@@ -22,7 +22,7 @@
       <form class="form-signin" th:action="@{/logincheck}"  method="POST">
       <!-- Enviamos un parametro oculto de la configuracion el 'csrf', que envia un token para evitar vulnerabilidades web conocidas -->
       	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <h2 class="form-signin-heading">Sign in</h2>
+        <h2 class="form-signin-heading">Sign in !!!!</h2>
         <label for="inputEmail" class="sr-only">Username</label>
         <!-- input type="text" id="inputUsername" class="form-control" placeholder="Username" th:field="*{user}"/> -->
         <input type="text" class="form-control" placeholder="Username" name="username" id="username"/>

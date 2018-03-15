@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 //import com.curso.springleo.controller.LoginController;
 import com.curso.springleo.entity.User;
 import com.curso.springleo.entity.UserRole;
+import com.curso.springleo.repository.RoleRepository;
 import com.curso.springleo.repository.UserRepository;
 
 
@@ -31,6 +32,10 @@ public class UserService implements UserDetailsService{
 	@Autowired 
 	@Qualifier("userRepository")
 	private UserRepository userRepository;
+	
+	@Autowired
+	@Qualifier("rolerepository")
+	private RoleRepository roleRepository;
 
 	/*
 	 * Este metodo se va a encargar de ir a nuestro repositorio y busca findByUsername, ya que recibe por parametro un string con el username.
@@ -80,13 +85,14 @@ public class UserService implements UserDetailsService{
 		return new ArrayList<GrantedAuthority>(auths);
 	}
 
-	public User userByUsername(String username) {
-		//List<String> rolesUser = new ArrayList<String>();
+	public Set<UserRole> RolesUser(String username) {
+		Set<UserRole> rolesUser = new HashSet<UserRole>();
 		
-		User user = userRepository.findByUsername(username);
-		LOG.info("--UserSevice-- devuelve Usuario : " + user + "." );
+		rolesUser = roleRepository.findByUserUsername(username);
+		LOG.info("--UserSevice-- devuelve Usuario : " + rolesUser + "." );
+	
 			
-        return user;
+        return rolesUser;
 	}
 	
 }
